@@ -91,6 +91,10 @@
             "knockoutjs": {
               "target": "Package",
               "version": "[3.5.1, )"
+            },
+            "popper.js": {
+              "target": "Package",
+              "version": "[1.16.1, )"
             }
           },
           "imports": [

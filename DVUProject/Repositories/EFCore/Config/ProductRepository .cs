@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using DVUProject.Models;
 using DVUProject.Models.Entity;
 using DVUProject.Repositories.Contracts;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -21,6 +24,21 @@ namespace DVUProject.Repositories.EFCore.Config
         {
             return _context.Products.Where(x => x.IsActive == true).ToList();
         }
+
+        public void CreateProduct(Product product) 
+        {
+            product.IsActive = true;
+
+            _context.Products.Add(product);
+            _context.SaveChanges();
+
+        }
+
+        public void Save()
+        {
+            _context.SaveChanges();
+        }
+
 
         public async Task<Product> GetProductByIdAsync(int id)
         {
@@ -41,7 +59,7 @@ namespace DVUProject.Repositories.EFCore.Config
 
                 return product;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine($"Error in GetProductByIdAsync: {ex.Message}");
 
@@ -54,8 +72,8 @@ namespace DVUProject.Repositories.EFCore.Config
             try
             {
                 product.IsActive = true;
-                _context.Products.Add(product);                
-   
+                _context.Products.Add(product);
+
                 _context.SaveChanges();
                 return product;
             }
@@ -105,9 +123,9 @@ namespace DVUProject.Repositories.EFCore.Config
                     return false;
 
                 productToDelete.IsActive = false;
-                _context.SaveChanges(); 
+                _context.SaveChanges();
 
-                return true; 
+                return true;
             }
             catch (Exception ex)
             {

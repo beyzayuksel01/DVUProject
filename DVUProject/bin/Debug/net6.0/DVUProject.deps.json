@@ -18,7 +18,8 @@
           "Swashbuckle.AspNetCore.SwaggerUI": "6.3.0",
           "bootstrap": "5.3.2",
           "jQuery": "3.5.0.1",
-          "knockoutjs": "3.5.1"
+          "knockoutjs": "3.5.1",
+          "popper.js": "1.16.1"
         },
         "runtime": {
           "DVUProject.dll": {}
@@ -696,6 +697,7 @@
           }
         }
       },
+      "popper.js/1.16.1": {},
       "runtime.native.System/4.0.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "3.1.0",
@@ -1956,6 +1958,13 @@
       "sha512": "sha512-PrylFjwlRWWMdxhcaFcJ3fB57bFhQ4pcvzs9OHw6HQWrS2i/lej8N/N1IiTjhyXOkmYo172FMlZljpIY2f79mg==",
       "path": "nswag.generation.aspnetcore/13.0.0",
       "hashPath": "nswag.generation.aspnetcore.13.0.0.nupkg.sha512"
+    },
+    "popper.js/1.16.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-6GiVZho0vwBnId7pK7NLTjMGq4F0/VE65I08CCeKlarVoUt1w8SGTtJmhNo/0pK38EGUP/xbT4+OkWB8UTMPBw==",
+      "path": "popper.js/1.16.1",
+      "hashPath": "popper.js.1.16.1.nupkg.sha512"
     },
     "runtime.native.System/4.0.0": {
       "type": "package",

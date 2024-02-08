@@ -8,6 +8,7 @@ using DVUProject.Repositories.Contracts;
 using DVUProject.Repositories.EFCore.Config;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -24,10 +25,29 @@ namespace DVUProject.Controllers
             _productRepository = productRepository;
         }
 
-        public ActionResult Index()
+        public ActionResult Index() 
         {
-            return View();
+            var products = _productRepository.GetAllProducts().Where(p => p.IsActive).ToList();
+
+            return View(products);
         }
+
+
+
+        [HttpPost("/Create")]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create([FromBody] Product product)
+        {
+            if (ModelState.IsValid)
+            {
+                _productRepository.CreateProduct(product);
+                _productRepository.Save();
+                return RedirectToAction("Index");
+            }
+            return View(product); 
+        }
+
+
 
 
         [HttpGet("/Product/products")]
@@ -38,7 +58,7 @@ namespace DVUProject.Controllers
                 var products = _productRepository.GetAllProducts();
                 return Ok(products);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return StatusCode(500, $"Internal Server Error: {ex.Message}");
             }
@@ -80,13 +100,14 @@ namespace DVUProject.Controllers
             }
         }
 
-        [HttpPut("/updateProduct/{id}")] 
+
+        [HttpPut("/updateProduct/{id}")]
         public ActionResult<Product> UpdateProduct(int id, [FromBody] Product updatedProduct)
         {
             try
             {
-                _productRepository.UpdateProduct(id,updatedProduct);
-                return NoContent(); 
+                _productRepository.UpdateProduct(id, updatedProduct);
+                return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
@@ -105,14 +126,14 @@ namespace DVUProject.Controllers
 
                 if (isDeleted)
                 {
-                    return NoContent();
+                    return RedirectToAction("Index");
                 }
                 else
                 {
                     return NotFound();
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return StatusCode(500, $"Internal Server Error: {ex.Message}");
             }

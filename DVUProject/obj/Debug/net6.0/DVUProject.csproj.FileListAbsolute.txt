@@ -82,3 +82,4 @@ C:\Users\beyza\source\repos\DVUProject\DVUProject\bin\Debug\net6.0\NSwag.Generat
 C:\Users\beyza\source\repos\DVUProject\DVUProject\bin\Debug\net6.0\NSwag.Generation.AspNetCore.dll
 C:\Users\beyza\source\repos\DVUProject\DVUProject\obj\Debug\net6.0\DVUProject.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\beyza\source\repos\DVUProject\DVUProject\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\beyza\source\repos\DVUProject\DVUProject\obj\Debug\net6.0\DVUProject.sourcelink.json

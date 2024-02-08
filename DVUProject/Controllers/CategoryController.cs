@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using DVUProject.Models.Entity;
 using DVUProject.Models;
 using DVUProject.Repositories.Contracts;
+using DVUProject.Repositories.EFCore.Config;
 
 namespace DVUProject.Controllers
 {
@@ -22,7 +23,9 @@ namespace DVUProject.Controllers
         }
         public ActionResult Index()
         {
-            return View();
+            var categories = _categoryRepository.GetCategories();
+
+            return View(categories);
         }
 
 

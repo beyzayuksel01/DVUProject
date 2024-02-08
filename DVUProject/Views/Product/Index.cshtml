@@ -1,0 +1,403 @@
+﻿@model List<DVUProject.Models.Entity.Product>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Products</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-4">Products</h1>
+
+        <a id="toggleAddForm" class="btn btn-primary mt-3">Add Product</a>
+
+        <form id="addProductForm" style="display: none;" class="mt-3" asp-controller="Product" asp-action="Create" method="post">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="Name">Product Name:</label>
+                    <input type="text" class="form-control" id="Name" name="Name" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="CategoryId">Category ID:</label>
+                    <input type="number" class="form-control" id="CategoryId" name="CategoryId">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="Price">Price:</label>
+                    <input type="number" class="form-control" id="Price" name="Price" step="0.01" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="Quantity">Quantity:</label>
+                    <input type="number" class="form-control" id="Quantity" name="Quantity" required>
+                </div>
+            </div>
+            <button type="submit" onclick="createProduct()" class="btn btn-success">Save</button>
+        </form>
+
+        <table class="table mt-4">
+            <thead class="thead-light">
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>CategoryId</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var product in Model)
+                {
+                    <tr>
+                        <td>@product.Id</td>
+                        <td>@product.Name</td>
+                        <td>@product.CategoryId</td>
+                        <td>@product.Price</td>
+                        <td>@product.Quantity</td>
+                        <td>
+                            <a href="@Url.Action("UpdateProduct", "Product", new { id = product.Id })" class="btn btn-primary">Edit</a>
+                            <a href="@Url.Action("DeleteProduct", "Product", new { id = product.Id })" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    @* <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>  *@
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        document.getElementById('toggleAddForm').addEventListener('click', function () {
+            document.getElementById('addProductForm').style.display = 'block';
+        });
+    </script>
+    <script>  
+        function createProduct() {
+
+            var name = document.getElementById("Name").value;
+            var categoryid = document.getElementById("CategoryId").value;
+            var price = document.getElementById("Price").value;
+            var quantity = document.getElementById("Quantity").value;
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/Create", true);
+            xhr.setRequestHeader("Content-Type", "application/json"); 
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+
+                        console.log("Product created successfully!");
+                    } else {
+
+                        console.error("Error creating product:", xhr.responseText);
+                    }
+                }
+            };
+            var data = JSON.stringify({
+
+                name: name,
+                categoryid: categoryid,
+                price: price,
+                quantity: quantity
+  
+            });
+
+            xhr.send(data);
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@* @model List<DVUProject.Models.Entity.Product>
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Products</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Products</h1>
+
+    <button id="toggleAddForm">Add Product</button>
+
+    <form id="addProductForm" style="display: none;">
+        <label for="Name">Product Name:</label>
+        <input type="text" id="Name" name="Name" required>
+
+        <label for="CategoryId">Category ID:</label>
+        <input type="number" id="CategoryId" name="CategoryId">
+
+        <label for="Price">Price:</label>
+        <input type="number" id="Price" name="Price" step="0.01" required>
+
+        <label for="Quantity">Quantity:</label>
+        <input type="number" id="Quantity" name="Quantity" required>
+
+        <button type="submit">Save</button>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>CategoryId</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model)
+            {
+                <tr>
+                    <td>@product.Id</td>
+                    <td>@product.Name</td>
+                    <td>@product.CategoryId</td>
+                    <td>@product.Price</td>
+                    <td>@product.Quantity</td>
+                    <td>
+                        <a href="@Url.Action("Edit", "Product", new { id = product.Id })">Edit</a> 
+                        <a href="@Url.Action("Delete", "Product", new { id = product.Id })">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <script>
+        document.getElementById('toggleAddForm').addEventListener('click', function () {
+            document.getElementById('addProductForm').style.display = 'block';
+        });
+    </script>
+</body>
+</html>
+ *@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@* @model List<DVUProject.Models.Entity.Product>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Products</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Products</h1>
+
+    <form id="addProductForm">
+        <label for="Name">Product Name:</label>
+        <input type="text" id="Name" name="Name" required>
+
+        <label for="CategoruId">Category ID:</label>
+        <input type="number" id="CategoruId" name="CategoruId">
+
+        <label for="Price">Price:</label>
+        <input type="number" id="Price" name="Price" step="0.01" required>
+
+        <label for="Quantity">Quantity:</label>
+        <input type="number" id="Quantity" name="Quantity" required>
+
+        <button type="submit">Add Product</button>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>CategoryId</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model)
+            {
+                <tr>
+                    <td>@product.Id</td>
+                    <td>@product.Name</td>
+                    <td>@product.CategoryId</td>
+                    <td>@product.Price</td>
+                    <td>@product.Quantity</td>
+                    <td>
+                        <a href="@Url.Action("UpdateProduct", "Product", new { id = product.Id })">Edit</a> 
+                        <a href="@Url.Action("DeleteProduct", "Product", new { id = product.Id })">Delete</a>
+                    </td>
+                    
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>
+
+ *@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@* @model IEnumerable<Product>
+
+<h2>Product</h2>
+<a asp-controller="Product" asp-action="Create" class="btn btn-primary">Add</a>
+<hr>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.Id)</th>
+            <th>@Html.DisplayNameFor(m => m.Name)</th>
+            <th>@Html.DisplayNameFor(m => m.CategoryId)</th>
+            <th>@Html.DisplayNameFor(m => m.Price)</th>
+            <th>@Html.DisplayNameFor(m => m.IsActive)</th>
+            <th style="width: 150px;">Settings</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelitem => item.Id)</td>
+                <td>@Html.DisplayFor(modelitem => item.Name)</td>
+                <td>@Html.DisplayFor(modelitem => item.CategoryId)</td>
+                <td>@Html.DisplayFor(modelitem => item.Price)</td>
+                <td>@Html.DisplayFor(modelitem => item.IsActive)</td>
+                <td>
+                    <a asp-controller="Home" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Edit</a>
+                    <a asp-controller="Home" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table> *@

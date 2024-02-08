@@ -1,6 +1,7 @@
 using DVUProject.Extentions;
 using DVUProject.Models;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -24,6 +25,12 @@ builder.Services.ConfigureRepositoryManager();
 builder.Services.ConfigureIProductManager();
 builder.Services.ConfigureICategoryManager();
 
+builder.Services.Configure<FormOptions>(options =>
+{
+    options.MemoryBufferThreshold = int.MaxValue;
+    options.MultipartBodyLengthLimit = int.MaxValue;
+});
+
 
 var app = builder.Build();
 
@@ -42,9 +49,15 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
+app.Use(async (context, next) =>
+{
+    context.Request.EnableBuffering();
+    await next();
+});
+
 app.UseRouting();
 
-app.UseAuthorization();//
+app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "YLPkb0tuw6jsoQqBFmdr0NwARFkklynpKNAeDvHD8/pvv97Vut86EL7AnS+XCWgmg231gFbB4WTs742vQEYjqA==",
+  "dgSpecHash": "hzHBY6msgCB2f5XOdl//CnPV7EiVjPenJNCk/Qam3um55jUIO7NxYa69Ib+EriW2ZhmQwIzhowgmM9X54Iv7Dw==",
   "success": true,
   "projectFilePath": "C:\\Users\\beyza\\source\\repos\\DVUProject\\DVUProject\\DVUProject.csproj",
   "expectedPackageFiles": [
@@ -71,6 +71,7 @@
     "C:\\Users\\beyza\\.nuget\\packages\\nswag.core\\13.0.0\\nswag.core.13.0.0.nupkg.sha512",
     "C:\\Users\\beyza\\.nuget\\packages\\nswag.generation\\13.0.0\\nswag.generation.13.0.0.nupkg.sha512",
     "C:\\Users\\beyza\\.nuget\\packages\\nswag.generation.aspnetcore\\13.0.0\\nswag.generation.aspnetcore.13.0.0.nupkg.sha512",
+    "C:\\Users\\beyza\\.nuget\\packages\\popper.js\\1.16.1\\popper.js.1.16.1.nupkg.sha512",
     "C:\\Users\\beyza\\.nuget\\packages\\runtime.native.system\\4.0.0\\runtime.native.system.4.0.0.nupkg.sha512",
     "C:\\Users\\beyza\\.nuget\\packages\\runtime.native.system.net.http\\4.0.1\\runtime.native.system.net.http.4.0.1.nupkg.sha512",
     "C:\\Users\\beyza\\.nuget\\packages\\runtime.native.system.security.cryptography\\4.0.0\\runtime.native.system.security.cryptography.4.0.0.nupkg.sha512",
